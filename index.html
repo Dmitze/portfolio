@@ -9,14 +9,17 @@
 </head>
 <body>
   <header>
+    <div class="cursor">
+      <div class="cursor-ball"></div>
+    </div>
     <div id="logo" onclick="slowScroll('#top')">
-      <span>itProger</span>
+      <span>Dmitry</span>
     </div>
     <div id="about">
-      <a href="#" title="Возможности" onclick="slowScroll('#main')">Возможности</a>
-      <a href="#" onclick="slowScroll('#overview')" title="Преимущества">Преимущества</a>
-      <a href="#" onclick="slowScroll('#contacts')" title="Контакты">Контакты</a>
-      <a href="#" onclick="slowScroll('#faq')" title="Ответы на вопросы">FAQ</a>
+      <a href="#" title="Возможности" onclick="slowScroll('#main')" data-link>Возможности</a>
+      <a href="#" onclick="slowScroll('#overview')" title="Преимущества" data-link>Преимущества</a>
+      <a href="#" onclick="slowScroll('#contacts')" title="Контакты" data-link>Контакты</a>
+      <a href="#" onclick="slowScroll('#faq')" title="Ответы на вопросы" data-link>FAQ</a>
     </div>
   </header>
 
@@ -24,17 +27,28 @@
     <div class="bubbles">
       <h1>My Portfolio<br>Shyvachov Dmytro Vasylovych</h1>
       </div>
+      <div class="unbreakable-container">  
+        <div class="unbreakable">
+          <span class="un">UN</span><span class="break">BREAK</span><span class="able">ABLE</span>
+        </div>
+        <div class="ks">Kimmie Schmidt</div>
+      </div>
   </div>
-
+  <div class="toggle-box">
   <div id="main">
+    <input type="checkbox" name="checkbox1"  id="toggle-box-checkbox"/>
+    <label for="toggle-box-checkbox"  class="toggle-box-label-left"></label>
+    <label for="toggle-box-checkbox"  class="toggle-box-label"></label>
     <div class="intro">
-      <h2>Наши услуги помогут вам!</h2>
+      <h2>Key information</h2>
       <span>Большой выбор всего, что может вам пригодиться</span>
     </div>
     <div class="text">
       <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos impedit, ut vero commodi voluptate? Ipsam reiciendis, necessitatibus incidunt ipsa quis sapiente excepturi, optio iusto voluptatibus dolorem officia quidem, numquam eaque minus, autem praesentium rem architecto dolores. Ipsa unde id velit optio magni enim! Illum obcaecati, dolorem distinctio nemo, ipsum iure.</span>
     </div>
   </div>
+</div>
+</div>
 
   <div id="overview">
     <h2>Преимущества</h2>
@@ -51,15 +65,15 @@
   </div>
 
   <div id="contacts">
-    <center><h5>Обратная связь</h5></center>
+    <h5>Обратная связь</h5>
     <form id="form_input">
-      <label for="name">Имя <span>*</span></label><br>
-      <input type="text" placeholder="Введите имя" name="name" id="name"><br>
-      <label for="email">Ваша почта <span>*</span></label><br>
-      <input type="email" placeholder="Введите email" name="email" id="email"><br>
-      <label for="message">Сообщение <span>*</span></label><br>
-      <textarea placeholder="Введите ваше сообщение" name="message" id="message"></textarea><br>
-      <div id="mess_send" class="btn">Отправить</div>
+      <label for="name" data-link>Имя <span>*</span></label><br>
+      <input type="text" placeholder="Введите имя" name="name" id="name" data-link><br>
+      <label for="email" data-link>Ваша почта <span>*</span></label><br>
+      <input type="email" placeholder="Введите email" name="email" id="email" data-link><br>
+      <label for="message" data-link>Сообщение <span>*</span></label><br>
+      <textarea placeholder="Введите ваше сообщение" name="message" id="message" data-link></textarea><br>
+      <div id="mess_send" class="btn" data-link>Отправить</div>
     </form>
   </div>
 
@@ -92,6 +106,9 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium beatae asperiores debitis perspiciatis perferendis nemo tempore distinctio officia commodi et non tempora laudantium culpa nostrum, quidem, quasi ratione itaque nam.</p>
     </div>
   </div>
+  <footer>
+
+</footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
@@ -156,5 +173,153 @@
 
 });
   </script>
+
+  <script>
+    /*--------------------
+Utils
+--------------------*/
+const lerp = (f0, f1, t) => (1 - t) * f0 + t * f1
+
+/*--------------------
+Vars
+--------------------*/
+const mouse = {
+  newX: 0,
+  newY: 0,
+  speedX: 0,
+  speedY: 0,
+  x: 0,
+  y: 0,
+  hover: false,
+  top: 0,
+  left: 0,
+  width: 0,
+  height: 0,
+}
+const $cursor = document.querySelector('.cursor')
+const links = document.querySelectorAll('[data-link]')
+
+/*--------------------
+Mouse
+--------------------*/
+const handleMouse = (e) => {
+  if (!mouse.hover) {
+    mouse.x = e.clientX || e.touches[0].clientX
+    mouse.y = e.clientY || e.touches[0].clientY
+  }
+}
+window.addEventListener('mousemove', handleMouse)
+window.addEventListener('touchmove', handleMouse)
+window.addEventListener('touchstart', handleMouse)
+
+/*--------------------
+Links
+--------------------*/
+let timer
+links.forEach((link) => {
+  link.addEventListener('mouseenter', () => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      $cursor.classList.add('hover')
+      mouse.hover = true
+      const { top, left, width, height } = link.getBoundingClientRect()
+      mouse.x = left - 6
+      mouse.y = top - 1
+      mouse.width = width
+      mouse.height = height  
+    }, 100)
+    
+  })
+  link.addEventListener('mouseleave', () => {
+    clearTimeout(timer)
+      timer = setTimeout(() => {
+      $cursor.classList.remove('hover')
+      mouse.hover = false
+    }, 100)
+  })
+})
+
+/*--------------------
+Raf
+--------------------*/
+const raf = () => {
+  mouse.newX = lerp(mouse.newX, mouse.x, .12)
+  mouse.newY = lerp(mouse.newY, mouse.y, .12)
+  
+  mouse.speedX = lerp(mouse.speedX, mouse.x - mouse.newX, .12)
+  mouse.speedY = lerp(mouse.speedY, mouse.y - mouse.newY, .12)
+  const speed = Math.abs(mouse.speedX) > Math.abs(mouse.speedY) ? mouse.speedX : -mouse.speedY
+  
+  let style
+  
+  if (!mouse.hover) {
+    style = {
+      width: '30px',
+      height: '30px',
+      marginLeft: '-15px',
+      marginTop: '-15px',
+      transform: `
+        translate(${mouse.newX}px, ${mouse.newY}px)
+        rotate(${45 - speed * 0.2}deg)
+        scale(${1 - Math.abs(speed) * 0.001})
+      `
+    }
+  } else {
+    style = {
+      width: `${mouse.width}px`,
+      height: `${mouse.height}px`,
+      marginLeft: 0,
+      marginTop: 0,
+      transform: `
+        translate(${mouse.newX}px, ${mouse.newY}px)
+        rotate(0deg)
+        scale(${1 - Math.abs(speed) * 0.001})
+      `
+    }
+  }
+  Object.assign($cursor.style, style)
+  
+  requestAnimationFrame(raf)
+}
+raf()
+  </script>
+
+  <script>
+    var hotbod = document.querySelector("body");
+
+function doStuff() {
+    hotbod.className += " animate";
+}
+
+window.onload = function() {
+    doStuff();
+};
+  </script>
+
+<script>
+  $('#toggle-box-checkbox').on('change', function(){
+  if(this.checked){
+    $('#main').addClass('night');
+  }else{
+    $('#main').removeClass('night');
+  }
+});
+
+
+
+
+
+// run demo if in searchresult preview
+function demo(){
+    setInterval(function(){
+      $("#toggle-box-checkbox").trigger('click');
+    }, 1000);
+}
+if (document.location.pathname.indexOf('fullcpgrid')>-1){
+  demo();
+}
+
+</script>
+ 
 </body>
 </html>
