@@ -51,17 +51,7 @@
 </div>
 
   <div id="overview">
-    <h2>Преимущества</h2>
-    <h4>с нами все проще</h4>
 
-    <div class="img">
-      <img src="https://say-hi.me/wp-content/uploads/2019/03/3-1.jpg" alt="">
-      <span>Интернет магазин</span>
-    </div>
-    <div class="img">
-      <img src="https://say-hi.me/wp-content/uploads/2019/03/3-1.jpg" alt="">
-      <span>Сайт визитка</span>
-    </div>
   </div>
 
   <div id="contacts">
@@ -106,8 +96,61 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium beatae asperiores debitis perspiciatis perferendis nemo tempore distinctio officia commodi et non tempora laudantium culpa nostrum, quidem, quasi ratione itaque nam.</p>
     </div>
   </div>
-  <footer>
 
+  <footer>
+    <h1>TOGGLE TABS</h1>
+    <div class="wrapper">
+      <div class="buttonWrapper">
+        <button class="tab-button active" style="border-top-left-radius: 10px;" data-id="home">Home</button>
+        <button class="tab-button" data-id="about">About</button>
+        <button class="tab-button" style="border-top-right-radius: 10px;" data-id="contact">Contact</button>
+      </div>
+      <div class="contentWrapper">
+        <p class="content active" id="home">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam iste doloribus unde ullam doloremque eos autem ad nulla accusamus? Modi at minima numquam accusamus repudiandae perspiciatis nostrum architecto voluptatem quasi?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ratione corporis earum laudantium sapiente autem praesentium error neque illum adipisci modi ea, consectetur rerum pariatur laborum aperiam at commodi! Impedit.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, quasi porro dolorum deleniti velit fuga perspiciatis veniam minus perferendis facere sit doloribus aliquid illum adipisci. Quam quasi maxime perferendis dolorem.
+        </p>
+        <p class="content" id="about">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis maxime itaque veritatis iste soluta placeat obcaecati laudantium repellat corrupti! Eius sunt rerum inventore magnam? Perspiciatis facere error suscipit quisquam quibusdam.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam, corporis voluptatem quo dignissimos eius quis perferendis vero culpa reiciendis nulla quisquam fugit minima sed molestiae excepturi beatae repudiandae ea? Aliquid!
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim sapiente officia vel consequuntur, hic at quis? Illo repellendus dolores totam facilis sunt sequi qui hic, nulla ratione harum porro perspiciatis.
+        </p>
+        <p class="content" id="contact">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sit incidunt nostrum? Magni, quam vero, magnam odio similique ipsam minima et repellat rerum cupiditate totam in repudiandae. Sed, dicta corrupti?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, dolore quas quis earum incidunt voluptas! Ducimus quod libero aliquid consequatur et modi porro officia, quibusdam quas commodi placeat maxime qui?
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab ea debitis eligendi accusamus deleniti maxime pariatur. Assumenda, facere placeat eius quam magni accusantium aut quae minima iure atque incidunt illum.
+        </p>
+      </div>
+    </div>
+    <!-- <div class="social-buttons">
+      <a href="#" class="social-buttons__button social-button social-button--facebook" aria-label="Facebook">
+        <span class="social-button__inner">
+          <i class="fab fa-facebook-f"><img src="./assets/social_ico/facebook.svg"></i>
+        </span>
+      </a>
+      <a href="#" class="social-buttons__button social-button social-button--linkedin" aria-label="LinkedIn">
+        <span class="social-button__inner"><img src="./assets/social_ico/facebook.svg">
+          <i class="fab fa-linkedin-in"></i>
+        </span>
+      </a>
+      <a href="https://www.instagram.com/learningatwebdev/" target="_blank" class="social-buttons__button social-button social-button--instagram" aria-label="InstaGram">
+        <span class="social-button__inner">
+          <i class="fab fa-instagram"></i>
+        </span>
+      </a>
+      <a href="#" class="social-buttons__button social-button social-button--github" aria-label="GitHub">
+        <span class="social-button__inner">
+          <i class="fab fa-github"></i>
+        </span>
+      </a>
+      <a href="https://codepen.io/rajshukla9718" target="_blank" class="social-buttons__button social-button social-button--codepen" aria-label="CodePen">
+        <span class="social-button__inner">
+          <i class="fab fa-codepen"></i>
+        </span>
+      </a>
+    </div> -->
+    <a id="back-to-top" href="#">👆🏼</a>
 </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -173,7 +216,7 @@
 
 });
   </script>
-
+        <!-- Cursor  -->
   <script>
     /*--------------------
 Utils
@@ -283,7 +326,7 @@ const raf = () => {
 }
 raf()
   </script>
-
+  <!-- text header -->
   <script>
     var hotbod = document.querySelector("body");
 
@@ -295,7 +338,7 @@ window.onload = function() {
     doStuff();
 };
   </script>
-
+   <!-- Toggle -->
 <script>
   $('#toggle-box-checkbox').on('change', function(){
   if(this.checked){
@@ -319,6 +362,28 @@ if (document.location.pathname.indexOf('fullcpgrid')>-1){
   demo();
 }
 
+</script>
+ <!-- footer tubs -->
+<script>
+const tabs = document.querySelector(".wrapper");
+const tabButton = document.querySelectorAll(".tab-button");
+const contents = document.querySelectorAll(".content");
+
+tabs.onclick = e => {
+  const id = e.target.dataset.id;
+  if (id) {
+    tabButton.forEach(btn => {
+      btn.classList.remove("active");
+    });
+    e.target.classList.add("active");
+
+    contents.forEach(content => {
+      content.classList.remove("active");
+    });
+    const element = document.getElementById(id);
+    element.classList.add("active");
+  }
+}
 </script>
  
 </body>
