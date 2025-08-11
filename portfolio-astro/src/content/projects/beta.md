@@ -9,8 +9,8 @@ descriptionLong: >-
   Фокус на структурі, SEO-розмітці (JSON-LD), View Transitions та micro-interactions.
 links:
   repo: https://github.com/you/beta
-cover: /images/projects/beta-cover.jpg
-gallery: [/images/projects/beta-1.jpg]
+cover: /images/background.jpg
+gallery: [/images/background.jpg]
 tags: [SEO, Tooling]
 featured: false
 ---

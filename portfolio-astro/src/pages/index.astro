@@ -3,12 +3,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import ProjectCarousel from '../components/ProjectCarousel.astro';
 import { getCollection } from 'astro:content';
+import { personJsonLd } from '../utils/jsonLd.js';
 
 const all = await getCollection('projects');
 const featured = all.filter((p) => p.data.featured);
+const person = personJsonLd({
+  name: 'Ваше ім\'я',
+  url: Astro.site ? new URL('/', Astro.site).toString() : '/',
+  sameAs: ['https://github.com/your', 'https://linkedin.com/in/your']
+});
 ---
 
 <BaseLayout title="Портфоліо" description="Сучасні швидкі веб-рішення" canonical={Astro.url.href}>
+  <Fragment slot="head:jsonld">
+    <script type="application/ld+json">{JSON.stringify(person)}</script>
+  </Fragment>
   <section class="section hero reveal">
     <Container>
       <h1 style="font-size:var(--size-3)">Привіт, я — інженер фронтенду</h1>

@@ -11,11 +11,11 @@ descriptionLong: >-
 links:
   demo: https://example.com
   repo: https://github.com/you/alpha
-cover: /images/projects/alpha-cover.jpg
-gallery: [/images/projects/alpha-1.jpg, /images/projects/alpha-2.jpg]
+cover: /images/mackbook-on-table.jpg
+gallery: [/images/background.jpg, /images/mackbook-on-table.jpg]
 tags: [Astro, Performance, A11y]
 featured: true
-ogImage: /images/projects/alpha-og.jpg
+ogImage: /images/background.jpg
 ---
 
 Опис проєкту в деталях. Тут можна розмістити кейс-стаді, результати, метрики.
