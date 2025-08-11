@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+const { entry } = Astro.props as { entry: CollectionEntry<'projects'> };
+const project = entry.data;
+---
+<a href={`/projects/${entry.slug}`} class="card">
+  <span class="bg" style={`background-image:url('${project.cover}')`} aria-hidden="true" />
+  <div class="info">
+    <h3>{project.title}</h3>
+    <time>{project.year}</time>
+    <div class="tags">
+      {project.tags.map((t) => <span class="tag">{t}</span>)}
+    </div>
+  </div>
+</a>
+
+<style>
+.card { position: relative; display:block; border-radius: 14px; overflow:hidden; aspect-ratio:16/10; border:1px solid var(--color-border, rgba(0,0,0,.1)); background: color-mix(in oklab, white 60%, transparent); }
+.bg { position:absolute; inset:0; background-size:cover; background-position:center; filter: saturate(1.1); opacity:.7; transition: transform .5s ease, opacity .3s ease; }
+.card:hover .bg { transform: scale(1.05); opacity:.85; }
+.info { position:absolute; inset:auto 0 0 0; padding:1rem; color:white; text-shadow:0 2px 8px rgba(0,0,0,.6); background: linear-gradient( to top, rgba(0,0,0,.55), transparent ); }
+.tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem; }
+.tag { backdrop-filter: blur(8px); background: color-mix(in oklab, white 20%, transparent); padding:.2rem .5rem; border-radius:999px; border:1px solid rgba(255,255,255,.3); font-size:.8rem; }
+</style>

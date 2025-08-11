@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { entry: p } }));
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: p.title,
+  datePublished: String(p.year),
+  url: Astro.url.href,
+  keywords: p.tags.join(', '),
+  image: p.ogImage || p.cover,
+  author: { '@type': 'Person', name: 'Ваше ім\'я' }
+};
+---
+
+<BaseLayout title={p.title} description={p.descriptionShort} ogImage={p.ogImage || p.cover} canonical={Astro.url.href}>
+  <Fragment slot="head:jsonld">
+    <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+  </Fragment>
+  <section class="section reveal">
+    <Container>
+      <h1>{p.title}</h1>
+      <p><strong>Роль:</strong> {p.role} · <strong>Стек:</strong> {p.stack.join(', ')} · <strong>Рік:</strong> {p.year}</p>
+      <img src={p.cover} alt={p.title} width="1600" height="900" loading="lazy" />
+      <article>
+        <slot />
+      </article>
+      {p.links?.demo && <p><a href={p.links.demo} rel="noopener noreferrer" target="_blank">Демо</a></p>}
+      {p.links?.repo && <p><a href={p.links.repo} rel="noopener noreferrer" target="_blank">Repo</a></p>}
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+<button class="theme-toggle" aria-label="Перемкнути тему" title="Перемкнути тему">
+  ☀️/🌙
+</button>
+
+<script>
+  // Легка логіка перемикання теми
+  const btn = document.currentScript.previousElementSibling;
+  const root = document.documentElement;
+  const KEY = 'theme';
+  const set = (t) => { root.dataset.theme = t; localStorage.setItem(KEY, t); };
+  const init = () => {
+    const saved = localStorage.getItem(KEY);
+    if (saved) return set(saved);
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    set(prefersDark ? 'dark' : 'light');
+  };
+  init();
+  btn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    set(next);
+  });
+</script>
+
+<style>
+.theme-toggle {
+  border: 1px solid var(--color-border, rgba(0,0,0,0.1));
+  background: color-mix(in oklab, white 70%, transparent);
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+}
+</style>

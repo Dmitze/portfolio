@@ -1,0 +1,18 @@
+---
+const url = new URL(Astro.url);
+const current = url.searchParams.get('lang') || 'uk';
+const linkFor = (lang: string) => {
+  const u = new URL(url);
+  u.searchParams.set('lang', lang);
+  return u.pathname + u.search;
+};
+---
+<nav aria-label="Зміна мови" class="lang">
+  <a href={linkFor('uk')} aria-current={current === 'uk' ? 'page' : undefined}>UK</a>
+  <span aria-hidden="true">/</span>
+  <a href={linkFor('en')} aria-current={current === 'en' ? 'page' : undefined}>EN</a>
+</nav>
+<style>
+.lang { display:flex; align-items:center; gap:.25rem; }
+.lang a[aria-current='page'] { text-decoration: underline; }
+</style>

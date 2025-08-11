@@ -1,0 +1,64 @@
+---
+// Базовий макет сторінок
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/theme.css';
+import '../styles/transitions.css';
+import '../styles/fonts.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+
+const {
+  title = 'Портфоліо',
+  description = 'Сучасне портфоліо розробника на Astro',
+  ogImage = '/og-default.svg',
+  lang = 'uk',
+  canonical
+} = Astro.props;
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preload" href="/fonts/Geist-VF.woff2" as="font" type="font/woff2" crossorigin />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- JSON-LD вставляється через слот head:jsonld -->
+    <slot name="head:jsonld" />
+
+    <!-- Підключення скриптів прогресивно -->
+    <script type="module" src="/scripts/view-transitions.js" defer></script>
+    <script type="module" src="/scripts/scroll-animate.js" defer></script>
+  </head>
+  <body>
+    <a href="#main" class="skip">Пропустити до контенту</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <Analytics />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+      }
+    </script>
+  </body>
+</html>

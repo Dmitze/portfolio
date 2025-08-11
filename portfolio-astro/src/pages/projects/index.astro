@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import FiltersBar from '../../components/FiltersBar.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const tag = Astro.url.searchParams.get('tag');
+const q = (Astro.url.searchParams.get('q') || '').toLowerCase();
+const allTags = Array.from(new Set(projects.flatMap((p) => p.data.tags))).sort();
+let filtered = tag ? projects.filter((p) => p.data.tags.includes(tag)) : projects;
+if (q) {
+  filtered = filtered.filter((p) =>
+    p.data.title.toLowerCase().includes(q) ||
+    p.data.descriptionShort.toLowerCase().includes(q)
+  );
+}
+const sorted = filtered.sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="Проекти" description="Реальні кейси і результати">
+  <section class="section reveal">
+    <Container>
+      <h1>Проекти</h1>
+      <form method="get" class="grid" style="grid-template-columns: 1fr auto; align-items:center;">
+        <input type="search" name="q" placeholder="Пошук проєктів" value={q} />
+        <button type="submit">Пошук</button>
+      </form>
+      <FiltersBar tags={allTags} />
+      <div class="projects-grid">
+        {sorted.map((p) => <ProjectCard entry={p} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

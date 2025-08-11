@@ -1,0 +1,1 @@
+!function(){var d=document,s=d.createElement('script');s.defer=true;s.setAttribute('data-domain',location.hostname);s.src='https://plausible.io/js/script.js';d.head.appendChild(s);}();

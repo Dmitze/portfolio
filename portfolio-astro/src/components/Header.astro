@@ -1,0 +1,48 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import LangSwitch from './LangSwitch.astro';
+---
+
+<header class="site-header" role="banner">
+  <div class="wrap">
+    <a class="logo" href="/">DM</a>
+    <nav aria-label="Головна навігація">
+      <a href="/projects">Проекти</a>
+      <a href="/about">Про мене</a>
+      <a href="/contact">Контакти</a>
+    </nav>
+    <div style="display:flex; gap:.5rem; align-items:center;">
+      <LangSwitch />
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(14px);
+  background: color-mix(in oklab, transparent 70%, white);
+  border-bottom: 1px solid color-mix(in oklab, transparent 60%, black);
+}
+.site-header .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+nav {
+  display: flex;
+  gap: 1rem;
+}
+.logo { font-weight: 700; letter-spacing: 0.04em; }
+
+@media (max-width: 720px) {
+  nav { display: none; }
+}
+</style>

@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+const { projects } = Astro.props as { projects: Array<CollectionEntry<'projects'>> };
+---
+
+<div class="embla" client:visible>
+  <div class="embla__viewport">
+    <div class="embla__container">
+      {projects.map((p) => (
+        <div class="embla__slide"><ProjectCard entry={p} /></div>
+      ))}
+    </div>
+  </div>
+  <div class="embla__controls">
+    <button class="prev" aria-label="Попередній">←</button>
+    <button class="next" aria-label="Наступний">→</button>
+  </div>
+</div>
+
+<script>
+  // Ініціалізація Embла після видимості компонента
+  import EmblaCarousel from 'embla-carousel';
+  const root = document.currentScript.closest('.embla');
+  const viewport = root.querySelector('.embla__viewport');
+  const embla = EmblaCarousel(viewport, { loop: true, align: 'start' });
+  root.querySelector('.prev')?.addEventListener('click', () => embla.scrollPrev());
+  root.querySelector('.next')?.addEventListener('click', () => embla.scrollNext());
+</script>
+
+<style>
+.embla { position: relative; }
+.embla__viewport { overflow: hidden; }
+.embla__container { display: flex; gap: 1rem; }
+.embla__slide { flex: 0 0 80%; max-width: 80%; }
+@container (min-width: 720px) {
+  .embla__slide { flex-basis: 33%; max-width: 33%; }
+}
+.embla__controls { display:flex; gap:.5rem; justify-content:flex-end; margin-top:.5rem; }
+</style>

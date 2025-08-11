@@ -1,0 +1,27 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Футер навігація">
+      <a href="/projects">Проекти</a>
+      <a href="/about">Про мене</a>
+      <a href="/contact">Контакти</a>
+    </nav>
+    <p>© {new Date().getFullYear()} Ваше ім'я. Всі права захищено.</p>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--color-border, rgba(0,0,0,0.1));
+  padding: 2rem 1rem;
+}
+.site-footer .wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+nav { display: flex; gap: 1rem; }
+</style>

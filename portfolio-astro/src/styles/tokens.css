@@ -1,0 +1,22 @@
+:root {
+  /* Кольори в OKLCH */
+  --bg: oklch(98% 0.01 250);
+  --fg: oklch(21% 0.04 250);
+  --accent: oklch(65% 0.16 280);
+  --surface: color-mix(in oklab, white 70%, transparent);
+  --border: color-mix(in oklab, black 10%, transparent);
+
+  /* Типографіка */
+  --size-0: clamp(0.9rem, 0.6vw + 0.7rem, 1rem);
+  --size-1: clamp(1rem, 1vw + 0.9rem, 1.25rem);
+  --size-2: clamp(1.25rem, 1.4vw + 1rem, 1.75rem);
+  --size-3: clamp(1.6rem, 2vw + 1.2rem, 2.4rem);
+  --radius: 14px;
+}
+
+:root[data-theme='dark'] {
+  --bg: oklch(14% 0.04 250);
+  --fg: oklch(92% 0.02 250);
+  --surface: color-mix(in oklab, black 40%, transparent);
+  --border: color-mix(in oklab, white 18%, transparent);
+}

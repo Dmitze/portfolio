@@ -1,0 +1,17 @@
+---
+const enabled = import.meta.env.PUBLIC_ENABLE_ANALYTICS === '1';
+const provider = import.meta.env.PUBLIC_ANALYTICS_PROVIDER || 'plausible';
+const domain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN || '';
+---
+{enabled && provider === 'plausible' && domain && (
+  <script defer data-domain={domain} src="/analytics/plausible.js"></script>
+)}
+{enabled && provider === 'ga' && (
+  <Fragment>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX', { anonymize_ip: true, allow_google_signals: false });
+    </script>
+  </Fragment>
+)}

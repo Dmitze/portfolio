@@ -1,0 +1,7 @@
+.glass { backdrop-filter: blur(16px); background: var(--surface); border: 1px solid var(--border); }
+.glow { box-shadow: 0 10px 30px color-mix(in oklab, var(--accent) 20%, transparent); }
+
+.section { padding: clamp(2rem, 4vw, 4rem) 0; }
+.section h2 { font-size: var(--size-3); margin: 0 0 1rem; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
